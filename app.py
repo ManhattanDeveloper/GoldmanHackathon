@@ -14,7 +14,7 @@ def hello_monkey():
 
 @app.route('/send/<message>')
 def sender(message):
-    numbers = ["+13174183511", "+15083454942"]
+    numbers = ["+13174183511"]
     for number in numbers:
         print("Message sent to "+ number)
         messenger.send(number, message)
