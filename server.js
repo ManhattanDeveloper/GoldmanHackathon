@@ -11,6 +11,7 @@ var app = express();
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -26,16 +27,45 @@ var client = new Twitter({
 	  access_token_key: '248339629-xt2AKRQttBQr3WEUyiovDKrDeu09bObacg50QpcT',
 	  access_token_secret: 'dtNUkxKfbcdY7tihRXpCVfTwxAw6QoLp4PZSq6b10Nq8l'
 	});
+var array = ["tester", "second text string", "3", "dounggsd"];
 
-client.stream('statuses/filter', {track: 'GoldmanSachs'}, function(stream) {
+
+
+app.post('/addToArray', function(req, res){
+  var phrase = req.body.name;
+  client.stream('statuses/filter', {track: phrase}, function(stream) {
   stream.on('data', function(tweet) {
     console.log(tweet.text);
     alchemyapi.sentiment("text", tweet.text, {}, function(response) {
-		console.log("Sentiment: " + response["docSentiment"]["type"]);
-		});
+
+    myVar =  response["docSentiment"];
+    console.log(typeof myVar["score"]);
+    /*
+    if (typeof myVar != 'undefined' ){
+      array.push(myVar["score"]);
+      console.log(array);
+      console.log("Sentiment: " + response["docSentiment"]["type"]);
+    }
+    */
+
+
+    
+    });
   });
 
   stream.on('error', function(error) {
     throw error;
   });
 });
+  /*
+  array.push(req.body.name);
+  console.log(array);
+  res.send(array);
+  */
+});
+
+//Retrieves all entries from the array.
+app.get('/contactlist', function(req, res){
+  res.send(array);
+});
+
