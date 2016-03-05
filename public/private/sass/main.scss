@@ -1,0 +1,15 @@
+@import '../scripts/src/dashboard/sass/dashboard.scss';
+@import '../scripts/src/header/Header.scss';
+@import '../../MyComponent/sass/MyComponent.scss';
+
+
+body, html {
+	width:100%;
+	height:100%;
+}
+
+.sandbox {
+	background-color: #242424;
+	width:100%;
+	height:100%;
+}
