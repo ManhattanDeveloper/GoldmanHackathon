@@ -43,20 +43,6 @@ app.post('/addToArray', function(req, res){
     console.log("Sum" + sum);
 
     alchemyapi.sentiment("text", tweet.text, {}, function(response) {
-      /*
-    if(typeof response[docSentiment] != 'undefined'){
-        myVar =  response["docSentiment"];
-        console.log(typeof myVar["score"]);
-        
-        if (typeof myVar != 'undefined' ){
-          array.push(myVar["score"]);
-          console.log(array);
-          console.log("Sentiment: " + response["docSentiment"]["type"]);
-        }
-        
-    }
-    */
-
 
 
     });
@@ -77,4 +63,18 @@ app.post('/addToArray', function(req, res){
 app.get('/contactlist', function(req, res){
   res.send(array);
 });
+
+
+/*
+    if((typeof response[docSentiment] === undefined) == false){
+        myVar =  response["docSentiment"];
+        console.log(typeof myVar["score"]);
+        
+        if (typeof myVar != 'undefined' ){
+          array.push(myVar["score"]);
+          console.log(array);
+          console.log("Sentiment: " + response["docSentiment"]["type"]);
+        }
+        
+    }*/
 
