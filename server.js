@@ -29,7 +29,7 @@ var client = new Twitter({
 	  access_token_secret: 'dtNUkxKfbcdY7tihRXpCVfTwxAw6QoLp4PZSq6b10Nq8l'
 	});
 
-var array = ["test", sum];
+var array = [sum];
 
 
 
