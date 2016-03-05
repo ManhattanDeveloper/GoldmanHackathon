@@ -3,6 +3,8 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var Twitter = require('twitter');
+var AlchemyAPI = require('./alchemyapi');
+var alchemyapi = new AlchemyAPI();
 var app = express();
 
 
@@ -28,6 +30,9 @@ var client = new Twitter({
 client.stream('statuses/filter', {track: 'GoldmanSachs'}, function(stream) {
   stream.on('data', function(tweet) {
     console.log(tweet.text);
+    alchemyapi.sentiment("text", tweet.text, {}, function(response) {
+		console.log("Sentiment: " + response["docSentiment"]["type"]);
+		});
   });
 
   stream.on('error', function(error) {
