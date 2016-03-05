@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html ng-app = "myApp">
 <head>
-		<Title> Twitter Sentiment </title>
+		<Title> Goldman Sentiment Finder </title>
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container" ng-controller="AppCtrl">
-		<h1> Twitter Sentiment </h1>
+		<h1> Goldman Sentiment Sentiment </h1>
 		<table class="table">
 			<tbody>
 				<tr>
@@ -28,7 +28,7 @@
 				</tr>
 				<tr ng-repeat = "task in contactlist">
 					<td>{{task}}</td>
-					<td><button class='btn-danger' ng-click="deleteName(task)">Delete</td>
+					
 				</tr>	
 			</tbody>
 		</table>

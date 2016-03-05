@@ -8,6 +8,7 @@ var alchemyapi = new AlchemyAPI();
 var app = express();
 
 
+var sum = 0;
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
@@ -27,7 +28,8 @@ var client = new Twitter({
 	  access_token_key: '248339629-xt2AKRQttBQr3WEUyiovDKrDeu09bObacg50QpcT',
 	  access_token_secret: 'dtNUkxKfbcdY7tihRXpCVfTwxAw6QoLp4PZSq6b10Nq8l'
 	});
-var array = ["tester", "second text string", "3", "dounggsd"];
+
+var array = ["test", sum];
 
 
 
@@ -36,20 +38,27 @@ app.post('/addToArray', function(req, res){
   client.stream('statuses/filter', {track: phrase}, function(stream) {
   stream.on('data', function(tweet) {
     console.log(tweet.text);
-    alchemyapi.sentiment("text", tweet.text, {}, function(response) {
+    sum = Number(sum)+ Math.random()*2-1;
+    array = [tweet.text, sum];
+    console.log("Sum" + sum);
 
-    myVar =  response["docSentiment"];
-    console.log(typeof myVar["score"]);
-    /*
-    if (typeof myVar != 'undefined' ){
-      array.push(myVar["score"]);
-      console.log(array);
-      console.log("Sentiment: " + response["docSentiment"]["type"]);
+    alchemyapi.sentiment("text", tweet.text, {}, function(response) {
+      /*
+    if(typeof response[docSentiment] != 'undefined'){
+        myVar =  response["docSentiment"];
+        console.log(typeof myVar["score"]);
+        
+        if (typeof myVar != 'undefined' ){
+          array.push(myVar["score"]);
+          console.log(array);
+          console.log("Sentiment: " + response["docSentiment"]["type"]);
+        }
+        
     }
     */
 
 
-    
+
     });
   });
 
