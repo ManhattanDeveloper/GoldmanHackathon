@@ -26,30 +26,6 @@ myApp.controller('AppCtrl',['$scope','$http',
 
 		};
 
-		$scope.sendMsg = function(){
-			console.log($scope.task);
-
-			$http.post('/sendMsg', $scope.task).success(function(response){
-				refresh();
-			});
-
-		};
-
-		$scope.sendRandom = function(){
-			console.log($scope.task);
-
-			$http.post('/sendRandom', $scope.task).success(function(response){
-				refresh();
-			});
-
-		};
-
-		//Removes an element from the database based on a given id. 
-		//Refreshes the page to correctly represent the data in the database.
-		$scope.deleteName = function(name){
-			$http.delete('/contactlist/' + name);
-			refresh();
-
-		};
+		
 
 }]);

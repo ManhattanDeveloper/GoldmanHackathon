@@ -20,13 +20,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
-
+var consumer_key = process.env.CONSUMER_KEY;
+var consumer_secret = process.env.CONSUMER_SECRET;
+var acess_token_key = process.env.ACCESS_TOKEN_KEY;
+var access_token_secret = process.env.ACCESS_TOKEN_SECRET;
 
 var client = new Twitter({
-	  consumer_key: 'RSgnkUZwGxAWWnqZAWh7QFOt2',
-	  consumer_secret: 'JckgGctzqn7Md5rkhUh3VPbnVE4EQSYL4zE0704MtsMFaopplj',
-	  access_token_key: '248339629-xt2AKRQttBQr3WEUyiovDKrDeu09bObacg50QpcT',
-	  access_token_secret: 'dtNUkxKfbcdY7tihRXpCVfTwxAw6QoLp4PZSq6b10Nq8l'
+
+	  consumer_key: consumer_key,
+	  consumer_secret: consumer_secret,
+	  access_token_key: access_token_key,
+	  access_token_secret: access_token_secret
 	});
 
 var array = [sum];
@@ -38,12 +42,18 @@ app.post('/addToArray', function(req, res){
   client.stream('statuses/filter', {track: phrase}, function(stream) {
   stream.on('data', function(tweet) {
     console.log(tweet.text);
-    sum = Number(sum)+ Math.random()*2-1;
     array = [tweet.text, sum];
     console.log("Sum" + sum);
 
     alchemyapi.sentiment("text", tweet.text, {}, function(response) {
-
+    
+    console.log(response);
+    if((response["status"]) != 'ERROR'){
+      if((response["docSentiment"]["score"]) != undefined){
+        sum = sum + parseFloat(response["docSentiment"]["score"]);
+      };
+    };
+    
 
     });
   });
@@ -52,11 +62,7 @@ app.post('/addToArray', function(req, res){
     throw error;
   });
 });
-  /*
-  array.push(req.body.name);
-  console.log(array);
-  res.send(array);
-  */
+
 });
 
 //Retrieves all entries from the array.
@@ -65,16 +71,5 @@ app.get('/contactlist', function(req, res){
 });
 
 
-/*
-    if((typeof response[docSentiment] === undefined) == false){
-        myVar =  response["docSentiment"];
-        console.log(typeof myVar["score"]);
-        
-        if (typeof myVar != 'undefined' ){
-          array.push(myVar["score"]);
-          console.log(array);
-          console.log("Sentiment: " + response["docSentiment"]["type"]);
-        }
-        
-    }*/
+
 
